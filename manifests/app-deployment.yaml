@@ -1,0 +1,29 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: toy-deployment
+  namespace: local
+  labels:
+    app.kubernetes.io/name: toy
+    app.kubernetes.io/instance: toy-myapp 
+    app.kubernetes.io/component: app
+spec:
+  template:
+    metadata:
+      name: toy
+      labels:
+        app.kubernetes.io/name: toy
+        app.kubernetes.io/instance: toy-myapp 
+        app.kubernetes.io/component: app
+    spec:
+      containers:
+      - name: toy-myapp
+        image: hanum20/spring-toy-project:test
+        ports:
+        - containerPort: 8080
+          name: http
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: toy-myapp 
+      app.kubernetes.io/component: app
